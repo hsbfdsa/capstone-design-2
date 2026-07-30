@@ -2,9 +2,6 @@
 
 > **Multi-Agent 기반 RAG를 활용하여 사용자의 관심사와 최신 트렌드를 반영한 AI 뉴스레터 자동 생성 시스템**
 
-<p align="center">
-  <img src="./docs/images/banner.png" width="900"/>
-</p>
 
 <p align="center">
 
