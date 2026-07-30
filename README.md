@@ -199,7 +199,11 @@ Markdown 뉴스레터를 생성합니다.
 # 💻 Demo
 
 <p align="center">
-<img src="./docs/images/demo.gif" width="900">
+<img src="./docs/images/demo1.png" width="900">
+</p>
+
+<p align="center">
+<img src="./docs/images/demo2.png" width="900">
 </p>
 
 사용자는 관심 있는 주제를 입력하면,
