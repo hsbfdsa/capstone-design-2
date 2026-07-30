@@ -176,6 +176,10 @@ Markdown 뉴스레터를 생성합니다.
 - Non-redundancy
 - Interest
 
+<p align="center">
+<img src="./docs/images/evaluation.png" width="900">
+</p>
+
 ---
 
 # 📈 Result
