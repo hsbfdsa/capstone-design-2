@@ -1,215 +1,256 @@
 # 📰 AI News Curator
 
-> 멀티 에이전트 기반 AI 뉴스 큐레이션 시스템
+> **Multi-Agent 기반 RAG를 활용하여 사용자의 관심사와 최신 트렌드를 반영한 AI 뉴스레터 자동 생성 시스템**
 
-AI News Curator는 최신 뉴스를 수집하고, 사용자의 관심사에 맞게 분석 및 요약하여 하나의 뉴스레터 형태로 제공하는 AI 기반 뉴스 큐레이션 시스템입니다.
+<p align="center">
+  <img src="./docs/images/banner.png" width="900"/>
+</p>
 
-LLM과 Multi-Agent 구조를 활용하여 뉴스 검색부터 요약, 편집, 최종 뉴스레터 생성까지의 과정을 자동화하였습니다.
+<p align="center">
 
----
+![Python](https://img.shields.io/badge/Python-3.11-blue?logo=python)
+![LangChain](https://img.shields.io/badge/LangChain-Framework-green)
+![LangGraph](https://img.shields.io/badge/LangGraph-Agent-orange)
+![OpenAI](https://img.shields.io/badge/OpenAI-GPT--4o-black)
+![Streamlit](https://img.shields.io/badge/Streamlit-App-red?logo=streamlit)
 
-## 📌 프로젝트 소개
-
-기존 뉴스 서비스는 단순한 기사 제공에 집중되어 있어 사용자가 원하는 정보를 선별하기 어렵다는 문제가 있습니다.
-
-본 프로젝트는 여러 AI Agent가 각각의 역할을 수행하여
-
-- 최신 뉴스 검색
-- 뉴스 분석 및 요약
-- 중요도 평가
-- 뉴스레터 생성
-
-과정을 자동으로 수행하는 AI 뉴스 큐레이션 시스템을 구현하였습니다.
+</p>
 
 ---
 
-## ✨ 주요 기능
+# 📖 Overview
 
-### 🔍 뉴스 검색
+최근 LLM을 활용한 뉴스 요약 서비스가 증가하고 있지만, 대부분의 시스템은 검색된 문서의 **관련성(Relevance)** 만 고려하여 뉴스를 생성합니다.
 
-- 키워드 기반 최신 뉴스 검색
-- 다양한 뉴스 기사 수집
+본 프로젝트에서는 기존 RAG(Retrieval-Augmented Generation)의 한계를 개선하기 위해 **화제성(Trendiness)** 을 함께 고려하는 **Multi-Agent 기반 RAG 시스템**을 제안하였습니다.
 
-### 🤖 AI 뉴스 큐레이션
+여러 명의 가상 구독자를 생성하여 각각의 관점에서 관심 있는 뉴스를 선택하도록 한 뒤, 이를 기반으로 뉴스를 선별하고 최종 뉴스레터를 생성합니다.
 
-- 기사 내용 분석
-- 핵심 내용 요약
-- 중요 뉴스 선별
-
-### 📝 뉴스레터 생성
-
-- 여러 기사를 하나의 뉴스레터로 통합
-- 읽기 쉬운 형식으로 재구성
-
-### 👨‍💻 멀티 에이전트 기반 처리
-
-각 Agent가 독립적인 역할을 수행하여 작업을 분담합니다.
-
-- Search Agent
-- Curator Agent
-- Editor Agent
-- Master Agent
+이를 통해 단순히 정확한 뉴스가 아닌, **많은 사람들이 관심을 가질 만한 뉴스레터**를 생성하는 것을 목표로 합니다.
 
 ---
 
-# 🏗 시스템 구조
+# ✨ Features
 
-```
-                  User
-                    │
-                    ▼
-             Master Agent
-                    │
-      ┌─────────────┼─────────────┐
-      │             │             │
-      ▼             ▼             ▼
- Search Agent  Curator Agent  Editor Agent
-      │             │             │
-      └─────────────┼─────────────┘
-                    │
-                    ▼
-           Newsletter Generator
-                    │
-                    ▼
-              Streamlit UI
+- 🔍 DuckDuckGo 기반 최신 뉴스 검색
+- 🤖 다양한 역할의 가상 구독자(Multi-Agent) 생성
+- 📝 Pre-survey를 통한 관심 기사 조사
+- 📚 RAG 기반 뉴스 요약
+- 📰 Markdown 형태 뉴스레터 자동 생성
+- 💻 Streamlit 기반 Demo 제공
+
+---
+
+# 🏗️ System Architecture
+
+<p align="center">
+<img src="./docs/images/system_architecture.png" width="900">
+</p>
+
+프로젝트는 다음과 같은 순서로 동작합니다.
+
+```text
+User Topic
+      │
+      ▼
+Web Search
+      │
+      ▼
+Virtual Subscribers
+      │
+      ▼
+Pre-Survey
+      │
+      ▼
+News Curation
+      │
+      ▼
+RAG Generation
+      │
+      ▼
+Newsletter
 ```
 
 ---
 
-# ⚙ 기술 스택
+# ⚙️ Tech Stack
 
-| 구분 | 기술 |
-|------|------|
+| Category | Technology |
+|----------|------------|
 | Language | Python |
-| LLM | OpenAI GPT |
-| Framework | Streamlit |
-| Agent | LangChain |
-| Workflow | LangGraph |
-| Retrieval | RAG |
-| Evaluation | LangSmith / Evaluation Module |
+| LLM | GPT-4o, GPT-3.5 Turbo |
+| Framework | LangChain, LangGraph |
+| Search Engine | DuckDuckGo Search API |
+| Embedding | OpenAI Embedding |
+| Vector Store | FAISS |
+| UI | Streamlit |
 
 ---
 
-# 📂 프로젝트 구조
+# 📂 Project Structure
 
-```
-ai-news-curator/
-
-├── agents/
-│   ├── master_agent.py
-│   ├── search_agent.py
-│   ├── curator_agent.py
-│   └── editor_agent.py
+```bash
+.
+├── agent/
+│   ├── direct_generation.py
+│   ├── basic_rag.py
+│   └── multi_agents.py
 │
-├── evaluation/
-│
-├── prompts/
-│
-├── utils/
+├── lib/
+│   ├── prompt.py
+│   └── utils.py
 │
 ├── app.py
 ├── requirements.txt
-└── README.md
+├── README.md
+│
+└── docs
+    ├── images
+    └── result
 ```
 
-(프로젝트 구조는 일부 생략되었습니다.)
-
 ---
 
-# 🔄 시스템 동작 과정
+# 🚀 Workflow
 
-1. 사용자가 키워드를 입력합니다.
+### 1. Topic 입력
 
-2. Search Agent가 관련 뉴스를 검색합니다.
+사용자가 관심 있는 주제를 입력합니다.
 
-3. Curator Agent가 뉴스를 분석하고 요약합니다.
-
-4. Editor Agent가 뉴스레터 형식으로 편집합니다.
-
-5. Master Agent가 전체 결과를 통합합니다.
-
-6. 최종 뉴스레터를 사용자에게 제공합니다.
-
----
-
-# 🚀 실행 방법
-
-## 1. 프로젝트 다운로드
-
-```bash
-git clone <repository-url>
-
-cd ai-news-curator
+```
+Artificial Intelligence
 ```
 
-## 2. 라이브러리 설치
+↓
 
-```bash
-pip install -r requirements.txt
+### 2. Web Search
+
+DuckDuckGo Search API를 이용하여 최신 뉴스를 수집합니다.
+
+↓
+
+### 3. Multi-Agent Survey
+
+다양한 배경의 가상 구독자를 생성합니다.
+
+예시
+
+- AI Researcher
+- Software Engineer
+- ML Developer
+- Journalist
+- Product Manager
+
+각 구독자는 자신이 가장 흥미롭게 생각하는 뉴스를 선택합니다.
+
+↓
+
+### 4. News Curation
+
+다수의 Agent가 선택한 뉴스를 기반으로
+
+중복을 제거하고
+
+최종 기사 후보를 선정합니다.
+
+↓
+
+### 5. Newsletter Generation
+
+선정된 기사들을 이용하여
+
+Markdown 뉴스레터를 생성합니다.
+
+---
+
+# 📊 Experiment
+
+총 **11명의 평가자**를 대상으로 다음 세 가지 방법을 비교하였습니다.
+
+- Direct Generation
+- Basic RAG
+- Proposed Multi-Agent
+
+평가 항목은 다음과 같습니다.
+
+- Relevance
+- Verifiability
+- Recentness
+- Non-redundancy
+- Interest
+
+---
+
+# 📈 Result
+
+| Method | Interest Score |
+|---------|---------------:|
+| Direct Generation | 2.73 |
+| Basic RAG | 2.64 |
+| **Multi-Agent (Ours)** | **3.36** |
+
+기존 RAG 대비 **약 20% 높은 관심도(Interest)** 를 기록하였으며,
+
+신뢰성과 최신성 역시 유지하는 결과를 확인하였습니다.
+
+<p align="center">
+<img src="./docs/images/result.png" width="700">
+</p>
+
+---
+
+# 💻 Demo
+
+<p align="center">
+<img src="./docs/images/demo.gif" width="900">
+</p>
+
+사용자는 관심 있는 주제를 입력하면,
+
+최신 뉴스를 검색하고,
+
+Multi-Agent가 뉴스를 선별한 뒤,
+
+최종 뉴스레터를 자동으로 생성합니다.
+
+---
+
+# 📌 Example Output
+
+```markdown
+## Weekly AI Newsletter
+
+### OpenAI releases new GPT model
+
+...
+
+Source:
+https://...
 ```
 
-## 3. 환경 변수 설정
-
-`.env`
-
-```env
-OPENAI_API_KEY=YOUR_API_KEY
-```
-
-필요한 API Key를 설정합니다.
-
 ---
 
-## 4. 실행
+# 👨‍💻 Team
 
-```bash
-streamlit run app.py
-```
-
-브라우저에서 실행된 Streamlit 페이지를 통해 서비스를 사용할 수 있습니다.
-
----
-
-# 📊 프로젝트 특징
-
-- Multi-Agent 구조 적용
-- 뉴스 자동 요약
-- 뉴스레터 자동 생성
-- RAG 기반 정보 활용
-- Streamlit 기반 UI
-- LLM 기반 자연어 처리
-
----
-
-# 📈 기대 효과
-
-- 뉴스 탐색 시간 단축
-- 사용자 맞춤형 정보 제공
-- 뉴스 소비 효율 향상
-- AI 기반 자동 뉴스레터 생성
-
----
-
-# 🔧 향후 개선 사항
-
-- 개인 맞춤형 뉴스 추천 기능
-- 관심 분야 학습 기능
-- 뉴스 중요도 자동 평가 개선
-- 다양한 뉴스 API 연동
-- 이메일 뉴스레터 자동 발송 기능
-
----
-
-# 📚 개발 환경
-
-| 항목 | 내용 |
+| Name | Role |
 |------|------|
-| Python | 3.x |
-| Streamlit | 최신 버전 |
-| OpenAI API | GPT |
-| LangChain | 최신 버전 |
-| LangGraph | 최신 버전 |
+| 홍승범 | Multi-Agent / RAG |
+| 차승언 | Research / Evaluation |
 
 ---
-- 홍승범
-- 차승언
+
+# 📚 References
+
+- LangChain
+- LangGraph
+- OpenAI API
+- DuckDuckGo Search API
+- FAISS
+
+---
+
+# 📄 License
+
+This project was developed for **Capstone Design II** at **Seoul National University of Science and Technology**.
+
+For academic purposes only.
